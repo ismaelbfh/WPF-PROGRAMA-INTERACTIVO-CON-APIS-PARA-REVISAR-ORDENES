@@ -1,0 +1,4943 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "GK_API_BARTENDER",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Bartender/printLabel": {
+      "post": {
+        "tags": [
+          "Bartender"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrintLabelResultDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CamposNavision/getListCamposNavision": {
+      "get": {
+        "tags": [
+          "CamposNavision"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CamposNavisionDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CamposNavision/{id}": {
+      "get": {
+        "tags": [
+          "CamposNavision"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CamposNavisionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CamposNavision/postCampoNavision": {
+      "post": {
+        "tags": [
+          "CamposNavision"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CamposNavision/putCampoNavision": {
+      "put": {
+        "tags": [
+          "CamposNavision"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CamposNavision/deleteCampoNavision": {
+      "delete": {
+        "tags": [
+          "CamposNavision"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CamposWSBartender/getTodosCampos": {
+      "get": {
+        "tags": [
+          "CamposWSBartender"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CamposWSBartender/getCamposFaltantes": {
+      "get": {
+        "tags": [
+          "CamposWSBartender"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CamposWSBartender/registrarCampos": {
+      "post": {
+        "tags": [
+          "CamposWSBartender"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Etiqueta/getListEtiquetas": {
+      "get": {
+        "tags": [
+          "Etiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "plantillaId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EtiquetaDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Etiqueta/getEtiquetaPorCodigoProducto": {
+      "get": {
+        "tags": [
+          "Etiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "codigoProducto",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Etiqueta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Etiqueta/postEtiqueta": {
+      "post": {
+        "tags": [
+          "Etiqueta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Etiqueta/putEtiqueta": {
+      "put": {
+        "tags": [
+          "Etiqueta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EtiquetaDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Etiqueta/deleteEtiqueta": {
+      "delete": {
+        "tags": [
+          "Etiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/HistoricoImpresion/getListHistoricoImpresion": {
+      "get": {
+        "tags": [
+          "HistoricoImpresion"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoricoImpresionDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/HistoricoImpresion/postHistoricoImpresion": {
+      "post": {
+        "tags": [
+          "HistoricoImpresion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HistoricoImpresionDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HistoricoImpresionDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HistoricoImpresionDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HistoricoImpresionDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterCampos/getListCampos": {
+      "get": {
+        "tags": [
+          "MasterCampos"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampoDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterCampos/postCampo": {
+      "post": {
+        "tags": [
+          "MasterCampos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterCampos/checkCampoEnPlantillas/{idCampo}": {
+      "get": {
+        "tags": [
+          "MasterCampos"
+        ],
+        "parameters": [
+          {
+            "name": "idCampo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterCampos/putCampo": {
+      "put": {
+        "tags": [
+          "MasterCampos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CampoDTORequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterCampos/deleteCampo": {
+      "delete": {
+        "tags": [
+          "MasterCampos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterClientes/checkClienteEnUso/{idCliente}": {
+      "get": {
+        "tags": [
+          "MasterClientes"
+        ],
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterClientes/getListClientes": {
+      "get": {
+        "tags": [
+          "MasterClientes"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterClientes/postCliente": {
+      "post": {
+        "tags": [
+          "MasterClientes"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterClientes/putCliente": {
+      "put": {
+        "tags": [
+          "MasterClientes"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterClientes/deleteCliente": {
+      "delete": {
+        "tags": [
+          "MasterClientes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterIdiomasLabels/getListIdiomasLabel": {
+      "get": {
+        "tags": [
+          "MasterIdiomasLabels"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterIdiomasLabels/checkIdiomaLabelEnLabel/{idIdiomaLabel}": {
+      "get": {
+        "tags": [
+          "MasterIdiomasLabels"
+        ],
+        "parameters": [
+          {
+            "name": "idIdiomaLabel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterIdiomasLabels/postIdiomaLabel": {
+      "post": {
+        "tags": [
+          "MasterIdiomasLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterIdiomasLabels/putIdiomaLabel": {
+      "put": {
+        "tags": [
+          "MasterIdiomasLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterIdiomasLabels/deleteIdiomaLabel": {
+      "delete": {
+        "tags": [
+          "MasterIdiomasLabels"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/checkLabelEnUso/{idLabel}": {
+      "get": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "parameters": [
+          {
+            "name": "idLabel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/checkLabelDuplicada": {
+      "get": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoLabel",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idIdioma",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabelDuplicadaDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/getListLabels": {
+      "get": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabelDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/postLabel": {
+      "post": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/putLabel": {
+      "put": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LabelDTORequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterLabels/deleteLabel": {
+      "delete": {
+        "tags": [
+          "MasterLabels"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterSecciones/checkSeccionEnUso/{idSeccion}": {
+      "get": {
+        "tags": [
+          "MasterSecciones"
+        ],
+        "parameters": [
+          {
+            "name": "idSeccion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterSecciones/getListSecciones": {
+      "get": {
+        "tags": [
+          "MasterSecciones"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterSecciones/postSeccion": {
+      "post": {
+        "tags": [
+          "MasterSecciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterSecciones/putSeccion": {
+      "put": {
+        "tags": [
+          "MasterSecciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterSecciones/deleteSeccion": {
+      "delete": {
+        "tags": [
+          "MasterSecciones"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCampos/getListTiposCampo": {
+      "get": {
+        "tags": [
+          "MasterTiposCampos"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCampos/checkTipoCampoEnCampos/{idTipoCampo}": {
+      "get": {
+        "tags": [
+          "MasterTiposCampos"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoCampo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCampos/postTipoCampo": {
+      "post": {
+        "tags": [
+          "MasterTiposCampos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCampos/putTipoCampo": {
+      "put": {
+        "tags": [
+          "MasterTiposCampos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCampos/deleteTipoCampo": {
+      "delete": {
+        "tags": [
+          "MasterTiposCampos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/getSelectDropdownCodificacionList": {
+      "get": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/checkTipoCodigoBarraEnUso/{idTipoCodigoBarra}": {
+      "get": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoCodigoBarra",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/getListTiposCodigosBarra": {
+      "get": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/postTipoCodigoBarra": {
+      "post": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/putTipoCodigoBarra": {
+      "put": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposCodigoBarra/deleteTipoCodigoBarra": {
+      "delete": {
+        "tags": [
+          "MasterTiposCodigoBarra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposConservacion/checkTipoConservacionEnUso/{idTipoConservacion}": {
+      "get": {
+        "tags": [
+          "MasterTiposConservacion"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoConservacion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposConservacion/getListTiposConservacion": {
+      "get": {
+        "tags": [
+          "MasterTiposConservacion"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposConservacion/postTipoConservacion": {
+      "post": {
+        "tags": [
+          "MasterTiposConservacion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposConservacion/putTipoConservacion": {
+      "put": {
+        "tags": [
+          "MasterTiposConservacion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposConservacion/deleteTipoConservacion": {
+      "delete": {
+        "tags": [
+          "MasterTiposConservacion"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEnvasado/checkTipoEnvasadoEnUso/{idTipoEnvasado}": {
+      "get": {
+        "tags": [
+          "MasterTiposEnvasado"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoEnvasado",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEnvasado/getListTiposEnvasado": {
+      "get": {
+        "tags": [
+          "MasterTiposEnvasado"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEnvasado/postTipoEnvasado": {
+      "post": {
+        "tags": [
+          "MasterTiposEnvasado"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEnvasado/putTipoEnvasado": {
+      "put": {
+        "tags": [
+          "MasterTiposEnvasado"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEnvasado/deleteTipoEnvasado": {
+      "delete": {
+        "tags": [
+          "MasterTiposEnvasado"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEtiqueta/checkTipoEtiquetaEnUso/{idTipoEtiqueta}": {
+      "get": {
+        "tags": [
+          "MasterTiposEtiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoEtiqueta",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEtiqueta/getListTiposEtiquetas": {
+      "get": {
+        "tags": [
+          "MasterTiposEtiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEtiqueta/postTipoEtiqueta": {
+      "post": {
+        "tags": [
+          "MasterTiposEtiqueta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEtiqueta/putTipoEtiqueta": {
+      "put": {
+        "tags": [
+          "MasterTiposEtiqueta"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposEtiqueta/deleteTipoEtiqueta": {
+      "delete": {
+        "tags": [
+          "MasterTiposEtiqueta"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposLabels/getListTiposLabel": {
+      "get": {
+        "tags": [
+          "MasterTiposLabels"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterTiposLabels/checkTipoLabelEnLabel/{idTipoLabel}": {
+      "get": {
+        "tags": [
+          "MasterTiposLabels"
+        ],
+        "parameters": [
+          {
+            "name": "idTipoLabel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposLabels/postTipoLabel": {
+      "post": {
+        "tags": [
+          "MasterTiposLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposLabels/putTipoLabel": {
+      "put": {
+        "tags": [
+          "MasterTiposLabels"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterTiposLabels/deleteTipoLabel": {
+      "delete": {
+        "tags": [
+          "MasterTiposLabels"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterUbicaciones/checkUbicacionEnUso/{idUbicacion}": {
+      "get": {
+        "tags": [
+          "MasterUbicaciones"
+        ],
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idUbicacion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterUbicaciones/getListUbicaciones": {
+      "get": {
+        "tags": [
+          "MasterUbicaciones"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterDataDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MasterUbicaciones/postUbicacion": {
+      "post": {
+        "tags": [
+          "MasterUbicaciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterUbicaciones/putUbicacion": {
+      "put": {
+        "tags": [
+          "MasterUbicaciones"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MasterDataDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterUbicaciones/deleteUbicacion": {
+      "delete": {
+        "tags": [
+          "MasterUbicaciones"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Plantilla/getListPlantillas": {
+      "get": {
+        "tags": [
+          "Plantilla"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filtro",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantillaDTOPaginatedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Plantilla/postPlantilla": {
+      "post": {
+        "tags": [
+          "Plantilla"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Plantilla/putPlantilla": {
+      "put": {
+        "tags": [
+          "Plantilla"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PlantillaDTO"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Plantilla/deletePlantilla": {
+      "delete": {
+        "tags": [
+          "Plantilla"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateInstaller/version": {
+      "get": {
+        "tags": [
+          "UpdateInstaller"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateInstaller/download": {
+      "get": {
+        "tags": [
+          "UpdateInstaller"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BartenderMessage": {
+        "type": "object",
+        "properties": {
+          "actionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BartenderResponse": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "waitStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "validated": {
+            "type": "boolean"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BartenderMessage"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Campo": {
+        "type": "object",
+        "properties": {
+          "pK_IdCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombreCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_IdTipoCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isNavision": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fK_IdCampoNavision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "etiquetaCamposValores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCamposValores"
+            },
+            "nullable": true
+          },
+          "fK_IdCampoNavisionNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CamposNavision"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdTipoCampoNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposCampo"
+              }
+            ],
+            "nullable": true
+          },
+          "plantillaCampos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlantillaCampos"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampoDTO": {
+        "type": "object",
+        "properties": {
+          "pkIdCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isNavision": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "nombreCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "descripcionTipoCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idCampoNavision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "descripcionCampoNavision": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampoDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampoDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampoDTORequest": {
+        "type": "object",
+        "properties": {
+          "pkIdCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isNavision": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "nombreCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idCampoNavision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CamposNavision": {
+        "type": "object",
+        "properties": {
+          "pK_IdCampoNavision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "campo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campo"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CamposNavisionDTO": {
+        "type": "object",
+        "properties": {
+          "pkIdCampoNavision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CamposNavisionDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CamposNavisionDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "pK_IdCliente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Etiqueta": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoEtiqueta": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdConservacion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdSeccion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdCliente": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechaGeneracion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "comentario": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_IdEnvasado": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombreEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoProducto": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaModificacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ovaloIdioma": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloCE": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_IdUbicacion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "etiquetaCamposValores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCamposValores"
+            },
+            "nullable": true
+          },
+          "etiquetaCodigosBarra": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCodigosBarra"
+            },
+            "nullable": true
+          },
+          "etiquetaLabels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaLabels"
+            },
+            "nullable": true
+          },
+          "fK_IdClienteNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdConservacionNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposConservacion"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdEnvasadoNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposEnvasado"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdPlantillaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Plantilla"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdSeccionNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Secciones"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdTipoEtiquetaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposEtiqueta"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdUbicacionNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ubicaciones"
+              }
+            ],
+            "nullable": true
+          },
+          "historicoImpresion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricoImpresion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaCampoValorDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaCampoValor": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valorCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreCampoDespuesDeBorrado": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaCamposValores": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaCampoValor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "valorCampo": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreCampoDespuesDeBorrado": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_IdCampoNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Campo"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdEtiquetaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Etiqueta"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaCodigoBarraDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaCodigoBarra": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdTipoCodigoBarra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaCodigosBarra": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaCodigoBarra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoCodigoBarra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiquetaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Etiqueta"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdTipoCodigoBarraNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposCodigoBarra"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoEtiqueta": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdConservacion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdSeccion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdCliente": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdEnvasado": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombreEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoProducto": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaGeneracion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "comentario": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechaModificacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ovaloIdioma": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloCE": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaCodigosBarra": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCodigoBarraDTO"
+            },
+            "nullable": true
+          },
+          "fK_IdUbicacion": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "usuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaCamposValores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCampoValorDTO"
+            },
+            "nullable": true
+          },
+          "etiquetaLabels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaLabelsDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaLabels": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdIdioma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdEtiquetaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Etiqueta"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdIdiomaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdiomasLabels"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdLabelNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LabelsMaster"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdTipoLabelNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposLabels"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EtiquetaLabelsDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdEtiquetaLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdIdioma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoricoImpresion": {
+        "type": "object",
+        "properties": {
+          "pK_IdHistoricoImpresion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigoOrden": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoProducto": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombrePlantilla": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutaArchivo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoConservacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "seccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "cliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "envasado": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoCodigoBarras": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloIdioma": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloCE": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaImpresion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ipMaquina": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonPeticionBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonRespuestaBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreEquipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioWindows": {
+            "type": "string",
+            "nullable": true
+          },
+          "fK_IdEtiquetaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Etiqueta"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoricoImpresionDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdHistoricoImpresion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codigoOrden": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoProducto": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombrePlantilla": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutaArchivo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoConservacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "seccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "cliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "envasado": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoCodigoBarras": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloIdioma": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "ovaloCE": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaImpresion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ipMaquina": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioPlanta": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioEtiqueta": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonPeticionBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "jsonRespuestaBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreEquipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioWindows": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoricoImpresionDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricoImpresionDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdiomasLabels": {
+        "type": "object",
+        "properties": {
+          "pK_IdIdioma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaLabels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaLabels"
+            },
+            "nullable": true
+          },
+          "labelsMaster": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelsMaster"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelDTO": {
+        "type": "object",
+        "properties": {
+          "pkIdLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcionLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcionTipoLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "idIdiomaLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcionIdiomaLabel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelDTORequest": {
+        "type": "object",
+        "properties": {
+          "pkIdLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fkIdTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fkIdIdioma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcionLabel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelDuplicadaDTO": {
+        "type": "object",
+        "properties": {
+          "existe": {
+            "type": "boolean"
+          },
+          "tipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "idioma": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelsMaster": {
+        "type": "object",
+        "properties": {
+          "pK_IdLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdIdioma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcionLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaLabels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaLabels"
+            },
+            "nullable": true
+          },
+          "fK_IdIdiomaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdiomasLabels"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdTipoLabelNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TiposLabels"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MasterDataDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MasterDataDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MasterDataDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Plantilla": {
+        "type": "object",
+        "properties": {
+          "pK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombrePlantilla": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutaArchivo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioCreacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaModificacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "usuarioModificacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          },
+          "plantillaCampos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlantillaCampos"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantillaCampoDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdPlantillaCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombreCampoBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "esObligatorio": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantillaCampos": {
+        "type": "object",
+        "properties": {
+          "pK_IdPlantillaCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fK_IdCampo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombreCampoBartender": {
+            "type": "string",
+            "nullable": true
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "esObligatorio": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fK_IdCampoNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Campo"
+              }
+            ],
+            "nullable": true
+          },
+          "fK_IdPlantillaNavigation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Plantilla"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantillaDTO": {
+        "type": "object",
+        "properties": {
+          "pK_IdPlantilla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombrePlantilla": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutaArchivo": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioCreacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaModificacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaCreacion": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "usuarioModificacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutaOvalo": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "plantillaCampos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlantillaCampoDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantillaDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlantillaDTO"
+            },
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrintLabelResultDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "bartenderResponse": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BartenderResponse"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Secciones": {
+        "type": "object",
+        "properties": {
+          "pK_IdSeccion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposCampo": {
+        "type": "object",
+        "properties": {
+          "pK_IdTipoCampo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "campo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campo"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposCodigoBarra": {
+        "type": "object",
+        "properties": {
+          "pK_IdTipoCodigoBarra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaCodigosBarra": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaCodigosBarra"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposConservacion": {
+        "type": "object",
+        "properties": {
+          "pK_IdConservacion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposEnvasado": {
+        "type": "object",
+        "properties": {
+          "pK_IdEnvasado": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposEtiqueta": {
+        "type": "object",
+        "properties": {
+          "pK_IdTipoEtiqueta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TiposLabels": {
+        "type": "object",
+        "properties": {
+          "pK_IdTipoLabel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiquetaLabels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EtiquetaLabels"
+            },
+            "nullable": true
+          },
+          "labelsMaster": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelsMaster"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ubicaciones": {
+        "type": "object",
+        "properties": {
+          "pK_IdUbicacion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "etiqueta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Etiqueta"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Please insert JWT with Bearer into field",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ]
+}

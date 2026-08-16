@@ -16,7 +16,7 @@ variables:
   # Definimos una carpeta temporal para recopilar los archivos que queremos incluir en el ZIP.
   tempPublishDir: '$(build.artifactStagingDirectory)\TempPublish'
   # Ruta final del ZIP
-  artifactZip: '$(build.artifactStagingDirectory)\InstaladorWPF.zip'
+  artifactZip: '$(build.artifactStagingDirectory)\InstaladorWPFBartender.zip'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -63,5 +63,5 @@ steps:
   displayName: 'Publicar Artefacto ZIP'
   inputs:
     PathtoPublish: '$(artifactZip)'
-    ArtifactName: 'InstaladorWPFZip'
+    ArtifactName: 'InstaladorWPFBartenderZip'
     publishLocation: 'Container'
