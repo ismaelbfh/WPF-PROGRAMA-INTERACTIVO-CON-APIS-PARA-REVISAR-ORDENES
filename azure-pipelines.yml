@@ -1,0 +1,67 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'PreAgent'  # Agente autohospedado para build
+  demands:
+    - Agent.Name -equals PreAgent
+  vmImage: 'PreAgent'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  # Definimos una carpeta temporal para recopilar los archivos que queremos incluir en el ZIP.
+  tempPublishDir: '$(build.artifactStagingDirectory)\TempPublish'
+  # Ruta final del ZIP
+  artifactZip: '$(build.artifactStagingDirectory)\InstaladorWPF.zip'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:SkipInvalidConfigurations=true'
+
+# Copiamos todos los archivos necesarios (por ejemplo, todo el contenido de la solución o las carpetas que necesites)
+- task: CopyFiles@2
+  displayName: 'Copiar archivos a carpeta temporal de publicación'
+  inputs:
+    # Ajusta SourceFolder según la estructura de tu repositorio. Aquí se copia todo.
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**/*'
+    TargetFolder: '$(tempPublishDir)'
+
+# (Opcional) Lista el contenido de la carpeta temporal para verificar que tiene lo que necesitas.
+- task: CmdLine@2
+  displayName: 'Listar contenido de TempPublish'
+  inputs:
+    script: |
+      echo Listado de $(tempPublishDir):
+      dir "$(tempPublishDir)" /s
+
+# Archivar la carpeta temporal en un único ZIP
+- task: ArchiveFiles@2
+  displayName: 'Archivar carpeta TempPublish en ZIP'
+  inputs:
+    rootFolderOrFile: '$(tempPublishDir)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(artifactZip)'
+
+# Publicar el ZIP como artefacto (solamente se publicará el archivo ZIP)
+- task: PublishBuildArtifacts@1
+  displayName: 'Publicar Artefacto ZIP'
+  inputs:
+    PathtoPublish: '$(artifactZip)'
+    ArtifactName: 'InstaladorWPFZip'
+    publishLocation: 'Container'

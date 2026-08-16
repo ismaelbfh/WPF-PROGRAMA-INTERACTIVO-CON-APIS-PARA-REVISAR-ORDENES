@@ -1,0 +1,5 @@
+aspnetcore-runtime-8.0.12-win-x64
+dotnet-hosting-8.0.12-win
+dotnet-runtime-8.0.14-win-x64
+dotnet-sdk-8.0.405-win-x64
+windowsdesktop-runtime-8.0.14-win-x64

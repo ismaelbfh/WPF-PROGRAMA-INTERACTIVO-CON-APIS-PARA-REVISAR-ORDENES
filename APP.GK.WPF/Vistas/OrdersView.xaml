@@ -1,0 +1,319 @@
+﻿<UserControl x:Class="APP.GK.WPF.Vistas.OrdersView" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:packIcon="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:APP.GK.WPF.Behaviors"
+             xmlns:local="clr-namespace:APP.GK.WPF.Converters"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+    <UserControl.Resources>
+        <!-- Convertidor para la visibilidad -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <!-- Convertidor para determinar si la orden está finalizada -->
+        <local:OrderFinalizedConverter x:Key="OrderFinalizedConverter"/>
+        <!-- Estilos existentes -->
+        <Style x:Key="EnhancedDataGridStyle" TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#CCCCCC"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#CCCCCC"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+        </Style>
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#C63527"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="2,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <TextBlock Text="{TemplateBinding Content}" 
+                         TextWrapping="Wrap"
+                         TextAlignment="Center"
+                         ToolTip="{TemplateBinding Content}"
+                         FontSize="18"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LargeDataGridTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="VistosoDataGridTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource LargeDataGridTextBlockStyle}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextTrimming" Value="None"/>
+        </Style>
+        <Style x:Key="CustomSearchTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="LightGray"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+        <Style x:Key="CustomActionButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#C63527"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="Margin" Value="0,0,4,0"/>
+        </Style>
+        <!-- Estilo para el botón Actualizar en la vista sin órdenes -->
+        <Style x:Key="NoOrdersUpdateButtonStyle" TargetType="Button" BasedOn="{StaticResource CustomActionButtonStyle}">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="#C63527"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Definimos tres filas: cabecera, área escalable y paginación -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera: botones de Buscar y Actualizar Parte (no escalados) -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,8" 
+                Visibility="{Binding HasOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+            <!-- Título -->
+            <TextBlock Text="Órdenes de Producción" 
+                 Style="{DynamicResource MaterialDesignHeadline4}" 
+                 Foreground="White" 
+                 Margin="0,0,0,4"/>
+            <!-- Contenedor de controles -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="SearchTextBox" 
+                 Grid.Column="0"
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                 Background="#C63527"
+                 Margin="0,0,4,0"
+                 Style="{StaticResource CustomSearchTextBoxStyle}"/>
+                <Button Content="Buscar" 
+                Grid.Column="1"
+                Command="{Binding SearchCommand}" 
+                Cursor="Hand"
+                Margin="4,0,4,0"
+                Style="{StaticResource CustomActionButtonStyle}"/>
+                <Button Content="Actualizar Parte" 
+                Grid.Column="2"
+                Command="{Binding RefreshCommand}" 
+                Cursor="Hand"
+                Style="{StaticResource CustomActionButtonStyle}" 
+                Margin="0,0,-23,0"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Sin datos base: Mensaje + Actualizar -->
+        <StackPanel Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Visibility="{Binding IsSinDatosBase, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="{Binding EmptyMessage}"
+               FontSize="16" FontWeight="Bold" Foreground="#C63527"
+               TextAlignment="Center" Margin="0,0,0,20"/>
+            <Button Content="Actualizar Parte"
+            Command="{Binding RefreshCommand}"
+            Cursor="Hand"
+            Style="{StaticResource NoOrdersUpdateButtonStyle}"/>
+        </StackPanel>
+        <!-- Hay filtro pero no resultados: Filtro + mensaje + actualizar -->
+        <StackPanel Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Visibility="{Binding IsSinResultadosFiltro, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="SearchTextBoxEmpty"
+                 Grid.Column="0"
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                 Background="#C63527"
+                 Margin="0,0,4,0"
+                 Style="{StaticResource CustomSearchTextBoxStyle}"/>
+                <Button Content="Buscar"
+                Grid.Column="1"
+                Command="{Binding SearchCommand}"
+                Cursor="Hand"
+                Margin="4,0,4,0"
+                Style="{StaticResource CustomActionButtonStyle}"/>
+                <Button Content="Actualizar Parte"
+                Grid.Column="2"
+                Command="{Binding RefreshCommand}"
+                Cursor="Hand"
+                Style="{StaticResource CustomActionButtonStyle}"
+                Margin="0,0,-23,0"/>
+            </Grid>
+            <TextBlock Text="{Binding EmptyMessage}"
+               FontSize="16" FontWeight="Bold" Foreground="#C63527"
+               TextAlignment="Center" Margin="0,0,0,20"/>
+        </StackPanel>
+
+
+        <!-- Área escalable: DataGrid y vista "Sin Órdenes" (dentro del Viewbox) -->
+        <Viewbox Grid.Row="1" Stretch="Uniform" VerticalAlignment="Top">
+            <Grid>
+                <!-- Vista "Con Órdenes" -->
+                <Grid x:Name="WithOrdersGrid" 
+              Visibility="{Binding HasOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- DataGrid -->
+                    <Border Background="#CCFFFFFF" CornerRadius="10" Padding="4" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <DataGrid x:Name="OrdersDataGrid"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top"
+                      Style="{StaticResource EnhancedDataGridStyle}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                      ItemsSource="{Binding Orders}"
+                      SelectedItem="{Binding SelectedOrder}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="behaviors:DataGridRowDoubleClickBehavior.DoubleClickCommand"
+                          Value="{Binding DataContext.FinalizeOrderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    <Setter Property="behaviors:DataGridRowRightClickContextMenuBehavior.ShowContextMenuCommand"
+                          Value="{Binding DataContext.FinalizeOrderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    <Setter Property="behaviors:FinalizedRowBehaviorHelper.AttachFinalizedBehavior" Value="True"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <!-- Si la orden está finalizada -->
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource OrderFinalizedConverter}">
+                                                    <Binding/>
+                                                    <Binding Path="FinalizedIds" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Background" Value="Gray"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="IsHitTestVisible" Value="False"/>
+                                        </DataTrigger>
+                                        <!-- Cuando la fila está seleccionada -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                                <Condition>
+                                                    <Condition.Binding>
+                                                        <MultiBinding Converter="{StaticResource OrderFinalizedConverter}">
+                                                            <Binding/>
+                                                            <Binding Path="FinalizedIds" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                        </MultiBinding>
+                                                    </Condition.Binding>
+                                                    <Condition.Value>False</Condition.Value>
+                                                </Condition>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="Gray"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </MultiDataTrigger>
+                                        <!-- Cuando el mouse está sobre la fila -->
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                                <Condition>
+                                                    <Condition.Binding>
+                                                        <MultiBinding Converter="{StaticResource OrderFinalizedConverter}">
+                                                            <Binding/>
+                                                            <Binding Path="FinalizedIds" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                        </MultiBinding>
+                                                    </Condition.Binding>
+                                                    <Condition.Value>False</Condition.Value>
+                                                </Condition>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#F0F0F0"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <!-- Definición de columnas -->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nº Previsión" Binding="{Binding NumeroPrevision}" MinWidth="160" Width="3*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="OP" Binding="{Binding OP}" MinWidth="150" Width="3*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Orden" Binding="{Binding Orden}" MinWidth="100" Width="*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat='{}{0:yyyy-MM-dd}'}" MinWidth="140" Width="3*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Maquina" Binding="{Binding Maquina}" MinWidth="110" Width="2.2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="PF" Binding="{Binding PF}" MinWidth="100" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" MinWidth="180" Width="3.5*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Fecha Caducidad" Binding="{Binding FechaCaducidad, StringFormat='{}{0:yyyy-MM-dd}'}" MinWidth="140" Width="3*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Lote" Binding="{Binding Lote}" MinWidth="120" Width="2.2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Cajas" Binding="{Binding Cajas, StringFormat='{}{0:N0}', ConverterCulture='es-ES'}" MinWidth="100" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="UM" Binding="{Binding UM}" MinWidth="110" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Sobres" Binding="{Binding Sobres, StringFormat='{}{0:N0}', ConverterCulture='es-ES'}" MinWidth="120" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Sobres/Hora" Binding="{Binding SobresHoraObjetivo, StringFormat='{}{0:N0}', ConverterCulture='es-ES'}" MinWidth="80" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Tiempo Prod." Binding="{Binding TiempoProduccion, StringFormat='{}{0:0.##}', ConverterCulture='es-ES'}" MinWidth="100" Width="1.5*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Nº Pers" Binding="{Binding NumeroPersonas, StringFormat='{}{0:N1}', ConverterCulture='es-ES'}" MinWidth="60" Width="1.5*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="PC" Binding="{Binding PC}" MinWidth="60" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="Desc. Esca" Binding="{Binding DescripcionEsca}" MinWidth="150" Width="3*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                                <DataGridTextColumn Header="CE" Binding="{Binding CE, StringFormat='{}{0:N0}', ConverterCulture='es-ES'}" MinWidth="100" Width="2*" ElementStyle="{StaticResource VistosoDataGridTextBlockStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+
+                
+            </Grid>
+        </Viewbox>
+
+        <!-- Paginación (fuera del Viewbox, inmediatamente debajo del grid escalable) -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4"
+                Visibility="{Binding HasOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Button Content="Anterior" Command="{Binding PrevPageCommand}" Margin="4" Cursor="Hand" Background="#C63527" Foreground="White"/>
+            <TextBlock Text="Página " VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <TextBlock Text=" de " VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <TextBlock Text="{Binding TotalPages}" VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <TextBlock Text=" - Total: " VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <TextBlock Text="{Binding TotalRows}" VerticalAlignment="Center" Margin="4" Foreground="#C63527"/>
+            <Button Content="Siguiente" Command="{Binding NextPageCommand}" Margin="4" Cursor="Hand" Background="#C63527" Foreground="White"/>
+        </StackPanel>
+
+        <!-- Panel de carga (fuera del Viewbox) -->
+        <StackPanel x:Name="LoadingPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <TextBlock Text="Cargando órdenes..." FontSize="16" Foreground="Gray" TextAlignment="Center" Margin="0,0,0,10"/>
+            <ProgressBar IsIndeterminate="True" Width="200" Height="10" Foreground="#C63527"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

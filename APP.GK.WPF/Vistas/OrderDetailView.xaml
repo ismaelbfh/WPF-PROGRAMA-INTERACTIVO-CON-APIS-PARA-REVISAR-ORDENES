@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="APP.GK.WPF.Vistas.OrderDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Height="Auto" Width="Auto">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+            <Setter Property="Foreground" Value="#C63527"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#C63527"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="#C63527"/>
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="Foreground" Value="#C63527"/>
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="OrderComboBoxItemTemplate">
+            <Grid>
+                <TextBlock x:Name="DummyTextBlock"
+                           Text="Seleccione una orden..."
+                           Foreground="#C63527"
+                           FontSize="16"
+                           Visibility="Collapsed"/>
+                <TextBlock x:Name="NormalTextBlock"
+                           Foreground="#C63527"
+                           FontSize="16"
+                           Visibility="Visible">
+                    <Run Text="{Binding OP}"/>
+                </TextBlock>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding OP}" Value="Seleccione una orden...">
+                    <Setter TargetName="DummyTextBlock" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="NormalTextBlock" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <Style x:Key="CustomRaisedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#C63527"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,16,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinHeight" Value="60"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="buttonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="buttonBorder" Property="Background" Value="#80C63527"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="16" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="LoadingPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <TextBlock Text="Cargando órdenes..." FontSize="16" Foreground="Gray" TextAlignment="Center" Margin="0,0,0,10"/>
+                <ProgressBar IsIndeterminate="True" Width="200" Height="10" Foreground="#C63527"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16" HorizontalAlignment="Left">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+
+                <StackPanel x:Name="OrderSelectionPanel"
+                            Orientation="Vertical"
+                            Margin="0,0,24,0"
+                            Visibility="{Binding HasOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="Seleccione orden del desplegable:"
+                               Foreground="#C63527"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               TextDecorations="Underline"
+                               FontStyle="Italic"
+                               Margin="0,0,0,4"/>
+                    <ComboBox ItemsSource="{Binding Orders}"
+                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                              Style="{StaticResource CustomComboBoxStyle}"
+                              Width="400"
+                              ItemTemplate="{StaticResource OrderComboBoxItemTemplate}"
+                              materialDesign:HintAssist.Hint="Seleccione una orden..."/>
+                </StackPanel>
+
+                <TextBlock x:Name="EmptyOrderMessageText"
+                           Text="{Binding EmptyMessage}"
+                           Foreground="#C63527"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,24,0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasOrders}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+
+            <Border Grid.Row="1" Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Order}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <StackPanel>
+                    <Border Background="#CCFFFFFF" CornerRadius="10" Padding="12">
+                        <StackPanel>
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="OP Fabricacion:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.OPFabricacion}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Codigo de producto:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.CodigoProducto}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Descripcion:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.Descripcion}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Linea:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.Linea}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Codigo de Embalaje:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.CodigoEmbalaje}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="#C63527" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Cantidad Embalajes a producir:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.CantidadAProducirEmbalajes, StringFormat='{}{0:N0}'}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center"
+                                               Margin="0,4,0,4" TextWrapping="Wrap"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Fecha:" Grid.Column="0"
+                                               Foreground="#C63527" FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               FontSize="14" VerticalAlignment="Center" Margin="0,4,8,4"/>
+                                    <TextBlock Text="{Binding Order.Fecha, StringFormat='{}{0:yyyy-MM-dd}'}" Grid.Column="1"
+                                               Foreground="#C63527" FontSize="14"
+                                               FontWeight="Bold" VerticalAlignment="Center" Margin="0,4,0,4"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Tipo de Etiqueta:"
+                                   Foreground="#C63527"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   TextDecorations="Underline"
+                                   FontStyle="Italic"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,8,0"/>
+                        <ComboBox ItemsSource="{Binding TipoEtiquetas}"
+                                  SelectedItem="{Binding TipoEtiqueta, Mode=TwoWay}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  Width="300"
+                                  HorizontalAlignment="Left"
+                                  materialDesign:HintAssist.Hint="Seleccione un tipo de etiqueta..."/>
+                    </StackPanel>
+
+                    <Button Content="ENVIAR A CÁMARA"
+                            Command="{Binding SendCommand}"
+                            Style="{DynamicResource CustomRaisedButtonStyle}"
+                            HorizontalAlignment="Center"
+                            Margin="0,16,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

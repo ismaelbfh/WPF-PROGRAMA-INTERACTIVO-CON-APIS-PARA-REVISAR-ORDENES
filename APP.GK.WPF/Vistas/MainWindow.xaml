@@ -1,0 +1,278 @@
+﻿<Window x:Class="APP.GK.WPF.Vistas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:APP.GK.WPF.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="APP Gestión Producción" Height="600" Width="1000"
+        Style="{StaticResource MaterialDesignWindow}"
+        Background="White"
+        WindowState="Maximized"
+        Closing="MainWindow_Closing">
+    <Window.Resources>
+        <!-- Convertidor para controlar la visibilidad -->
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <!-- Estilo para el ToggleButton (on/off) -->
+        <Style x:Key="MenuToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#C63527"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <materialDesign:PackIcon Kind="ChevronRight" Width="24" Height="24"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#AAF44336"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#CCF44336"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Cuando el menú está expandido se muestra el icono de contracción -->
+                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <materialDesign:PackIcon Kind="ChevronLeft" Width="40" Height="40"/>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <!-- Cuando el menú está colapsado se muestra el icono de expansión -->
+                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="False">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <materialDesign:PackIcon Kind="ChevronRight" Width="40" Height="40"/>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Estilo para los botones del menú con iconos y cambios de color -->
+        <Style x:Key="MenuRadioButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <!-- Estado por defecto: fondo transparente y texto rojo -->
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#C63527"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <!-- Alineamos el contenido a la izquierda -->
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="GroupName" Value="MenuGroup"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  RecognizesAccessKey="True"/>
+                            </Border>
+                            <Rectangle x:Name="Underline" Grid.Row="1" Height="1" Fill="#C63527" HorizontalAlignment="Stretch" Margin="0,4,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Cuando el mouse está sobre (sin presionar) -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsPressed" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FFCDD2"/>
+                                <Setter Property="Foreground" Value="#C63527"/>
+                                <Setter TargetName="Underline" Property="Fill" Value="#C63527"/>
+                            </MultiTrigger>
+                            <!-- Al presionar -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#D32F2F"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="Underline" Property="Fill" Value="White"/>
+                            </Trigger>
+                            <!-- Si está seleccionado y NO hay mouse sobre -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#D32F2F"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="Underline" Property="Fill" Value="White"/>
+                            </MultiTrigger>
+                            <!-- Si está seleccionado y además el mouse está sobre, se muestra el efecto de mouse over -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsPressed" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FFCDD2"/>
+                                <Setter Property="Foreground" Value="#C63527"/>
+                                <Setter TargetName="Underline" Property="Fill" Value="#C63527"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Primera columna: menú lateral -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Segunda columna: separador -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Tercera columna: contenido principal -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menú lateral -->
+        <Border Grid.Column="0" Background="White" BorderBrush="#C63527" BorderThickness="0,0,1,0">
+            <!-- El ancho del Border varía según el estado del menú -->
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Width" Value="300"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMenuExpanded}" Value="False">
+                            <Setter Property="Width" Value="50"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!-- Columna fija para el ToggleButton -->
+                    <ColumnDefinition Width="50"/>
+                    <!-- Columna para el resto de opciones -->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- ToggleButton: siempre visible -->
+                <ToggleButton x:Name="ToggleMenuButton"
+                              IsChecked="{Binding IsMenuExpanded, Mode=TwoWay}"
+                              Style="{StaticResource MenuToggleButtonStyle}"
+                              Grid.Column="0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Margin="8"/>
+                <!-- Sección de opciones del menú y actualización -->
+                <Grid Grid.Column="1" Margin="16,0,0,0"
+                      Visibility="{Binding IsMenuExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <!-- Fila superior: botones de navegación -->
+                        <RowDefinition Height="*"/>
+                        <!-- Fila inferior: botón de actualizar y versión -->
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Opciones superiores: botones del menú -->
+                    <StackPanel Grid.Row="0">
+                        <!-- Botón para Home -->
+                        <RadioButton Command="{Binding ShowHomeCommand}"
+                                     Style="{StaticResource MenuRadioButtonStyle}"
+                                     IsChecked="{Binding IsHomeSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="pack://application:,,,/APP.GK.WPF;component/Recursos/HomeIcon.png"
+                                       Width="24" Height="24" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="Home" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <!-- Botón para Listado órdenes -->
+                        <RadioButton Command="{Binding ShowOrdersCommand}"
+                                     Style="{StaticResource MenuRadioButtonStyle}"
+                                     IsChecked="{Binding IsOrdersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="pack://application:,,,/APP.GK.WPF;component/Recursos/ListadoOrdenesIcon.png"
+                                       Width="24" Height="24" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="Listado OP Fabricacion" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <!-- Botón para Cámara Visión -->
+                        <RadioButton Command="{Binding ShowOrderDetailCommand}"
+                                     Style="{StaticResource MenuRadioButtonStyle}"
+                                     IsChecked="{Binding IsCameraSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="pack://application:,,,/APP.GK.WPF;component/Recursos/CamaraMenuIcon.png"
+                                       Width="24" Height="24" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="Cámara Visión" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <!-- Sección inferior: botón "Verificar actualizaciones" y versión -->
+                    <StackPanel Grid.Row="1" Margin="0,8,0,0">
+                        <Button Command="{Binding CheckUpdateCommand}"
+                                Background="#C63527"
+                                Foreground="White"
+                                BorderBrush="DarkRed"
+                                BorderThickness="0,2,0,2"
+                                Padding="8"
+                                Width="240"
+                                Height="40"
+                                Margin="0,0,0,8">
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="pack://application:,,,/APP.GK.WPF;component/Recursos/updatedIcon.png"
+                                       Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Grid.Column="1" Text="ACTUALIZAR APLICACION" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                        <TextBlock Text="{Binding AppVersion}"
+                                   HorizontalAlignment="Center"
+                                   FontSize="12"
+                                   Foreground="Gray"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Separador decorativo -->
+        <Separator Grid.Column="1" Style="{DynamicResource MenuSeparatorStyle}"/>
+
+        <!-- Área de contenido principal -->
+        <Border Grid.Column="2" Background="{DynamicResource MaterialDesignBackground}">
+            <ContentControl Content="{Binding CurrentViewModel}" Margin="16"/>
+        </Border>
+    </Grid>
+</Window>
