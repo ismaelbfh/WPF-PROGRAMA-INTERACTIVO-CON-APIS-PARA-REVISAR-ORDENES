@@ -42,13 +42,14 @@ La aplicación utiliza dicha configuración para realizar la operación contra B
 BarTender procesa la plantilla y ejecuta la generación/impresión correspondiente.
 Decisiones técnicas
 Separación entre presentación, integración y datos.
+
 WPF como cliente de escritorio.
+
 Backend desacoplado para centralizar reglas e información.
+
 Comunicación mediante API.
+
 Cliente y modelos generados mediante NSwag/OpenAPI, reduciendo duplicación y manteniendo sincronizado el contrato cliente-servidor.
+
 Integración con BarTender Web Service.
 Persistencia/configuración centralizada en base de datos.
-CI/CD mediante Azure Pipelines — de hecho tu repo tiene azure-pipelines.yml. �
-GitHub
-Stack
-C# · .NET · WPF · XAML · REST API · NSwag/OpenAPI · SQL · BarTender · Azure DevOps / Pipelines
