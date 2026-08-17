@@ -1,4 +1,5 @@
 WPF – Sistema de gestión e impresión de etiquetas con BarTender
+
 Una aplicación empresarial WPF desarrollada en C#/.NET para gestionar de forma centralizada la selección, configuración e impresión de etiquetas mediante integración con BarTender y servicios backend.
 El objetivo del proyecto fue desacoplar la aplicación de escritorio de la lógica y configuración de negocio. La interfaz WPF trabaja con los datos necesarios para la operativa del usuario, mientras que la información de productos, configuraciones de etiquetas y plantillas se obtiene a través de una API conectada al sistema de gestión.
 Arquitectura
@@ -34,12 +35,17 @@ Arquitectura
 └─────────────────────────────┘
 Flujo funcional
 El usuario trabaja desde la aplicación WPF.
+
 Selecciona/introduce el producto sobre el que quiere realizar la operación.
+
 El cliente consulta el backend mediante la API.
 El backend obtiene del sistema de gestión la configuración asociada al producto.
 Se recuperan los datos necesarios para determinar la etiqueta y plantilla correspondiente.
+
 La aplicación utiliza dicha configuración para realizar la operación contra BarTender.
+
 BarTender procesa la plantilla y ejecuta la generación/impresión correspondiente.
+
 Decisiones técnicas
 Separación entre presentación, integración y datos.
 
