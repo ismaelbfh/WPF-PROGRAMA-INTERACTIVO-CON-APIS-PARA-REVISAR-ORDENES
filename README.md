@@ -1,20 +1,54 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
-
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+WPF – Sistema de gestión e impresión de etiquetas con BarTender
+Una aplicación empresarial WPF desarrollada en C#/.NET para gestionar de forma centralizada la selección, configuración e impresión de etiquetas mediante integración con BarTender y servicios backend.
+El objetivo del proyecto fue desacoplar la aplicación de escritorio de la lógica y configuración de negocio. La interfaz WPF trabaja con los datos necesarios para la operativa del usuario, mientras que la información de productos, configuraciones de etiquetas y plantillas se obtiene a través de una API conectada al sistema de gestión.
+Arquitectura
+┌─────────────────────────────┐
+│         WPF Client          │
+│       C# / XAML / .NET      │
+└──────────────┬──────────────┘
+               │
+               │ NSwag generated client
+               │ REST / DTOs
+               ▼
+┌─────────────────────────────┐
+│        Backend API          │
+│          .NET / C#          │
+└──────────────┬──────────────┘
+               │
+               │ consulta de configuración
+               ▼
+┌─────────────────────────────┐
+│      Sistema de gestión     │
+│                             │
+│ Productos · Etiquetas       │
+│ Plantillas · Configuración  │
+└──────────────┬──────────────┘
+               │
+               │ datos resueltos
+               ▼
+┌─────────────────────────────┐
+│      BarTender Service      │
+│                             │
+│ Generación / impresión      │
+│       de etiquetas          │
+└─────────────────────────────┘
+Flujo funcional
+El usuario trabaja desde la aplicación WPF.
+Selecciona/introduce el producto sobre el que quiere realizar la operación.
+El cliente consulta el backend mediante la API.
+El backend obtiene del sistema de gestión la configuración asociada al producto.
+Se recuperan los datos necesarios para determinar la etiqueta y plantilla correspondiente.
+La aplicación utiliza dicha configuración para realizar la operación contra BarTender.
+BarTender procesa la plantilla y ejecuta la generación/impresión correspondiente.
+Decisiones técnicas
+Separación entre presentación, integración y datos.
+WPF como cliente de escritorio.
+Backend desacoplado para centralizar reglas e información.
+Comunicación mediante API.
+Cliente y modelos generados mediante NSwag/OpenAPI, reduciendo duplicación y manteniendo sincronizado el contrato cliente-servidor.
+Integración con BarTender Web Service.
+Persistencia/configuración centralizada en base de datos.
+CI/CD mediante Azure Pipelines — de hecho tu repo tiene azure-pipelines.yml. �
+GitHub
+Stack
+C# · .NET · WPF · XAML · REST API · NSwag/OpenAPI · SQL · BarTender · Azure DevOps / Pipelines
